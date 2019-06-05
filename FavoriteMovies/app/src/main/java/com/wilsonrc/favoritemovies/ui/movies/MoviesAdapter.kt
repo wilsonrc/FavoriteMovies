@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.movies_item.view.*
 
 class MoviesAdapter(
         private val context: Context,
-        private val movies: List<Movie>,
-        private val listener: MoviesContract.MoviesOptionListener
+        private val movies: MutableList<Movie>,
+        private val listener: MoviesContract.ActionListener
 ) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesAdapter.ViewHolder {
@@ -34,7 +34,7 @@ class MoviesAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindMovie(movie: Movie, context: Context?, listener: MoviesContract.MoviesOptionListener) {
+        fun bindMovie(movie: Movie, context: Context?, listener: MoviesContract.ActionListener) {
 
             itemView.tvTitle?.text = movie.title
             itemView.rbScore?.rating = movie.voteAverage?.toFloat() ?: 0.0f
@@ -57,6 +57,23 @@ class MoviesAdapter(
 
         }
 
+    }
+
+    fun resetData() {
+        this.movies.clear()
+        notifyDataSetChanged()
+    }
+
+    fun replaceData(users: List<Movie>) {
+        movies.clear()
+        movies.addAll(users)
+        notifyDataSetChanged()
+    }
+
+    fun addData(users: List<Movie>) {
+        val initPosition = movies.size
+        movies.addAll(users)
+        notifyItemRangeInserted(initPosition, movies.size)
     }
 
 }

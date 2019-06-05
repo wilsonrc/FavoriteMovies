@@ -12,13 +12,12 @@ interface MoviesContract {
 
         fun showMovies(movies: List<Movie>)
         fun showNoMovies()
-        fun goToMovieDetal(movie: Movie)
 
     }
 
     interface Presenter<V : View> : BasePresenter<V> {
 
-        fun loadMovies(forceFetch: Boolean)
+        fun loadMovies(forceFetch: Boolean = false)
         fun loadFavoriteMovies()
         fun saveFavMovie(movie: Movie)
         fun deleteFavMovie(movie: Movie)
@@ -31,7 +30,7 @@ interface MoviesContract {
 
     }
 
-    interface MoviesOptionListener {
+    interface ActionListener {
 
         fun onFavoriteClicked(movie: Movie)
         fun onMovieClicked(movie: Movie)

@@ -1,12 +1,13 @@
-package com.wilsonrc.favoritemovies
+package com.wilsonrc.favoritemovies.ui.movies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.wilsonrc.favoritemovies.R
 
-class MainActivity : AppCompatActivity() {
+class MoviesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movies)
     }
 }
