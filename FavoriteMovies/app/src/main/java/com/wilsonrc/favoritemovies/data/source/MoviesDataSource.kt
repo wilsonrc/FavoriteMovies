@@ -13,6 +13,6 @@ interface MoviesDataSource {
 
     fun saveFavMovies(movie: Movie) : Completable
 
-    fun deleteFavMovies(id: Int) : Completable
+    fun deleteFavMovies(movie: Movie) : Completable
 
 }
