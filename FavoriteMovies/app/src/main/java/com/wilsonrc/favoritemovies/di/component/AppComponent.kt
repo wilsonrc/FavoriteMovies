@@ -1,9 +1,7 @@
 package com.wilsonrc.favoritemovies.di.component
 
 import com.wilsonrc.favoritemovies.base.BaseApp
-import com.wilsonrc.favoritemovies.di.modules.AppBindingModule
-import com.wilsonrc.favoritemovies.di.modules.AppModule
-import com.wilsonrc.favoritemovies.di.modules.NetworkModule
+import com.wilsonrc.favoritemovies.di.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -15,6 +13,8 @@ import javax.inject.Singleton
     modules = [AndroidSupportInjectionModule::class,
         AppModule::class,
         AppBindingModule::class,
+        ApiServiceModule::class,
+        DatabaseModule::class,
         NetworkModule::class]
 )
 interface AppComponent : AndroidInjector<BaseApp> {

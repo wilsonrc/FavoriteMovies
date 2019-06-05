@@ -1,52 +1,74 @@
 package com.wilsonrc.favoritemovies.data.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
-class Movie {
-
-    @SerializedName("vote_count")
-    @Expose
-    private val voteCount: Int? = null
+@Entity(tableName = "Movies")
+data class Movie(
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     @SerializedName("id")
     @Expose
-    private val id: Int? = null
-    @SerializedName("video")
+    var id: Int? = null,
+
+    @ColumnInfo(name = "vote_count")
+    @SerializedName("vote_count")
     @Expose
-    private val video: Boolean? = null
+    var voteCount: Int? = null,
+
+    @ColumnInfo(name = "vote_average")
     @SerializedName("vote_average")
     @Expose
-    private val voteAverage: Double? = null
+    var voteAverage: Double? = null,
+
+    @ColumnInfo(name = "title")
     @SerializedName("title")
     @Expose
-    private val title: String? = null
+    var title: String? = null,
+
+    @ColumnInfo(name = "popularity")
     @SerializedName("popularity")
     @Expose
-    private val popularity: Double? = null
+    var popularity: Double? = null,
+
+    @ColumnInfo(name = "poster_path")
     @SerializedName("poster_path")
     @Expose
-    private val posterPath: String? = null
+    var posterPath: String? = null,
+
+    @ColumnInfo(name = "original_language")
     @SerializedName("original_language")
     @Expose
-    private val originalLanguage: String? = null
+    var originalLanguage: String? = null,
+
+    @ColumnInfo(name = "original_title")
     @SerializedName("original_title")
     @Expose
-    private val originalTitle: String? = null
-    @SerializedName("genre_ids")
-    @Expose
-    private val genreIds: List<Int>? = null
+    var originalTitle: String? = null,
+
+    @ColumnInfo(name = "backdrop_path")
     @SerializedName("backdrop_path")
     @Expose
-    private val backdropPath: String? = null
+    var backdropPath: String? = null,
+
+    @ColumnInfo(name = "adult")
     @SerializedName("adult")
     @Expose
-    private val adult: Boolean? = null
+    var adult: Boolean? = null,
+
+    @ColumnInfo(name = "overview")
     @SerializedName("overview")
     @Expose
-    private val overview: String? = null
+    var overview: String? = null,
+
+    @ColumnInfo(name = "release_date")
     @SerializedName("release_date")
     @Expose
-    private val releaseDate: String? = null
+    var releaseDate: String? = null,
 
-}
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean = false
+)
