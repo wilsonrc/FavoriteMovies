@@ -14,19 +14,19 @@ class MoviesRepository @Inject constructor(
 ) : MoviesDataSource {
 
     override fun getMovies(): Observable<List<Movie>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return moviesRemoteDataSource.getMovies()
     }
 
     override fun getFavMovies(): Single<List<Movie>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return moviesLocalDataSource.getFavMovies()
     }
 
     override fun saveFavMovies(movie: Movie): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return moviesLocalDataSource.saveFavMovies(movie)
     }
 
     override fun deleteFavMovies(movie: Movie): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return moviesLocalDataSource.deleteFavMovies(movie)
     }
 
 }

@@ -19,5 +19,5 @@ object RepositoryModule {
     ): MoviesRepository {
         return MoviesRepository(moviesRemoteDataSource, moviesLocalDataSource)
     }
-    
+
 }
