@@ -5,7 +5,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class MoviesRepository : MoviesDataSource{
+class MoviesRepository : MoviesDataSource {
 
     override fun getMovies(): Observable<List<Movie>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -19,7 +19,7 @@ class MoviesRepository : MoviesDataSource{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deleteFavMovies(id: Int): Completable {
+    override fun deleteFavMovies(movie: Movie): Completable {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
