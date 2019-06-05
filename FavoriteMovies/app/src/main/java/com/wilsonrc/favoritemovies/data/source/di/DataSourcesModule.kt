@@ -1,4 +1,4 @@
-package com.wilsonrc.favoritemovies.di.modules
+package com.wilsonrc.favoritemovies.data.source.di
 
 import com.wilsonrc.favoritemovies.data.source.local.MoviesDao
 import com.wilsonrc.favoritemovies.data.source.local.MoviesLocalDataSource

@@ -1,6 +1,10 @@
 package com.wilsonrc.favoritemovies.di.component
 
 import com.wilsonrc.favoritemovies.base.BaseApp
+import com.wilsonrc.favoritemovies.data.source.di.DataSourcesModule
+import com.wilsonrc.favoritemovies.data.source.local.di.DatabaseModule
+import com.wilsonrc.favoritemovies.data.source.remote.di.ApiServiceModule
+import com.wilsonrc.favoritemovies.data.source.remote.di.NetworkModule
 import com.wilsonrc.favoritemovies.di.modules.*
 import dagger.BindsInstance
 import dagger.Component

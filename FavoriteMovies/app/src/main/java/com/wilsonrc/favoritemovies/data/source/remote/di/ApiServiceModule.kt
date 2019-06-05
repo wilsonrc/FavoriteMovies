@@ -1,4 +1,4 @@
-package com.wilsonrc.favoritemovies.di.modules
+package com.wilsonrc.favoritemovies.data.source.remote.di
 
 import com.wilsonrc.favoritemovies.data.source.remote.MoviesService
 import dagger.Module

@@ -1,4 +1,4 @@
-package com.wilsonrc.favoritemovies.di.modules
+package com.wilsonrc.favoritemovies.data.source.local.di
 
 import androidx.room.Room
 import com.wilsonrc.favoritemovies.base.BaseApp
