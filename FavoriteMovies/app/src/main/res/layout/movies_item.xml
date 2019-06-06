@@ -7,8 +7,8 @@
     <ImageView
         android:id="@+id/ivPoster"
         android:layout_width="180dp"
-        android:layout_height="260dp"
-        android:scaleType="center"
+        android:layout_height="240dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/no_poster"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +23,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/title_movie_item"
+        android:gravity="center"
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/rbScore"
@@ -44,7 +45,7 @@
 
     <RatingBar
         android:id="@+id/rbScore"
-        style="?android:attr/ratingBarStyleIndicator"
+        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

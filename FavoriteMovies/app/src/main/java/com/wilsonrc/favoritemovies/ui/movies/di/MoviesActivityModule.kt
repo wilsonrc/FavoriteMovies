@@ -18,7 +18,7 @@ abstract class MoviesActivityModule {
     abstract fun provideMoviesFragment(): MoviesFragment
 
     @Binds
-    @FragmentScope
+    @ActivityScope
     internal abstract fun provideMoviesPresenter(moviesPresenter: MoviesPresenter) : MoviesContract.Presenter<MoviesContract.View>
 
     @Binds

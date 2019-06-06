@@ -37,9 +37,9 @@ class MoviesAdapter(
         fun bindMovie(movie: Movie, context: Context?, listener: MoviesContract.ActionListener) {
 
             itemView.tvTitle?.text = movie.title
-            itemView.rbScore?.rating = movie.voteAverage?.toFloat() ?: 0.0f
+            itemView.rbScore?.rating = (movie.voteAverage?.toFloat()?.div(2)) ?: 0.0f
             context?.let {
-                Glide.with(context).load("http://image.tmdb.org/t/p/w185/{${movie.posterPath}}").into(itemView.ivPoster)
+                Glide.with(context).load("http://image.tmdb.org/t/p/w185/${movie.posterPath}").into(itemView.ivPoster)
                 if (movie.isFavorite) {
                     itemView.btnFav?.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_star_yellow_24dp))
                 } else {

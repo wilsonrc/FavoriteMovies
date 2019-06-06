@@ -1,5 +1,7 @@
 package com.wilsonrc.favoritemovies.ui.movies
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.wilsonrc.favoritemovies.R
 import com.wilsonrc.favoritemovies.data.models.Movie
 import com.wilsonrc.favoritemovies.utils.DisplayTools
-import dagger.android.DaggerFragment
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.android.synthetic.main.fragment_movies.view.*
 import javax.inject.Inject
@@ -49,8 +51,8 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_movies, container, false)
 
-        adapter = MoviesAdapter(activity, mutableListOf(), this@MoviesFragment)
-        if (DisplayTools.isTabletDisplay(activity)) {
+        adapter = MoviesAdapter(activity as Context, mutableListOf(), this@MoviesFragment)
+        if (DisplayTools.isTabletDisplay(activity as Activity)) {
             rootView?.rvMovies?.layoutManager = GridLayoutManager(activity, 4)
         } else {
             rootView?.rvMovies?.layoutManager = GridLayoutManager(activity, 2)
@@ -63,16 +65,20 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
     }
 
     companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MoviesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = MoviesFragment()
     }
+
+
+//    companion object {
+//
+//        fun newInstance(param1: String, param2: String) =
+//            MoviesFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
+//                }
+//            }
+//    }
 
     override fun showMovies(movies: List<Movie>) {
         tvNoMovies?.visibility = View.GONE
@@ -90,7 +96,7 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
     }
 
     override fun hideLoadingProgress() {
-        progressBar?.visibility = View.VISIBLE
+        progressBar?.visibility = View.GONE
     }
 
     override fun showMessage(title: String, body: String) {

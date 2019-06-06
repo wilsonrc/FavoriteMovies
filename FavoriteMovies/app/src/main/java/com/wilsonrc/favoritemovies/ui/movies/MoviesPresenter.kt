@@ -33,6 +33,7 @@ class MoviesPresenter @Inject constructor(private val moviesRepository: MoviesRe
                 override fun onError(e: Throwable) {
                     view?.hideLoadingProgress()
                     view?.showMessage("Error", "Error while loading list of movies")
+                    view?.showNoMovies()
                     e.printStackTrace()
                 }
             })
