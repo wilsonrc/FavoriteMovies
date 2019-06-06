@@ -104,7 +104,7 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
     }
 
     override fun onFavoriteClicked(movie: Movie) {
-        if (movie.isFavorite) {
+        if (!movie.isFavorite) {
             presenter.saveFavMovie(movie)
         } else {
             presenter.deleteFavMovie(movie)
