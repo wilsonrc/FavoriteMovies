@@ -20,7 +20,6 @@ import javax.inject.Inject
 class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.ActionListener {
 
     private val DATA_TYPE = "DATA_TYPE"
-    private val FAVORITE_DATA = "FAVORITE"
 
     private var isGeneral: Boolean = false
 
@@ -57,15 +56,31 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         }
         rootView?.rvMovies?.adapter = adapter
 
-        if(isGeneral){
+        if (isGeneral) {
             presenter.loadMovies()
-        }else{
+        } else {
             presenter.loadFavoriteMovies()
         }
 
         return rootView
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        swipeContainer?.setOnRefreshListener {
+            if (isGeneral) {
+                adapter?.resetData()
+                presenter.loadMovies()
+            } else {
+                adapter?.resetData()
+                presenter.loadFavoriteMovies()
+            }
+        }
+        swipeContainer?.setColorSchemeResources(
+            R.color.accent,
+            R.color.colorPrimaryDark
+        )
+    }
 
     companion object {
 
@@ -78,13 +93,15 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
     }
 
 
-        override fun showMovies(movies: List<Movie>) {
+    override fun showMovies(movies: List<Movie>) {
+        swipeContainer.isRefreshing = false
         tvNoMovies?.visibility = View.GONE
         rvMovies?.visibility = View.VISIBLE
         adapter?.addData(movies)
     }
 
     override fun showNoMovies() {
+        swipeContainer.isRefreshing = false
         rvMovies?.visibility = View.GONE
         tvNoMovies?.visibility = View.VISIBLE
     }

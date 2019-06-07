@@ -13,8 +13,18 @@ class MoviesRepository @Inject constructor(
     private val moviesLocalDataSource: MoviesLocalDataSource
 ) : MoviesDataSource {
 
+    private var isCached: Boolean = false
+
     override fun getMovies(): Observable<List<Movie>> {
-        return moviesRemoteDataSource.getMovies()
+        return    moviesRemoteDataSource.getMovies()
+//        } else {
+//            moviesRemoteDataSource.getMovies()
+//                .map { movies ->
+//                    saveMovies(movies)
+//                    isCached = true
+//                    movies
+//                }
+//        }
     }
 
     override fun getMovieDetail(id: Int): Single<Movie> {

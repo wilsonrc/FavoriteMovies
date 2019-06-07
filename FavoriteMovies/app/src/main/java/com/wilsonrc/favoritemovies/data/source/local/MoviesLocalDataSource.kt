@@ -31,6 +31,13 @@ class MoviesLocalDataSource @Inject constructor(private val moviesDao: MoviesDao
     override fun saveFavMovie(movie: Movie): Completable {
         return Completable.fromAction{
             movie.isFavorite = true
+           saveOrUpdate(movie)
+        }
+    }
+
+    private fun saveOrUpdate(movie: Movie) {
+        val id = moviesDao.save(movie)
+        if (id == (-1).toLong()) {
             moviesDao.update(movie)
         }
     }
