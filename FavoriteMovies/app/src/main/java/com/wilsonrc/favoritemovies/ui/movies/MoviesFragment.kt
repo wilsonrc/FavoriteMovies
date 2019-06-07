@@ -68,18 +68,6 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         fun newInstance() = MoviesFragment()
     }
 
-
-//    companion object {
-//
-//        fun newInstance(param1: String, param2: String) =
-//            MoviesFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
-
     override fun showMovies(movies: List<Movie>) {
         tvNoMovies?.visibility = View.GONE
         rvMovies?.visibility = View.VISIBLE

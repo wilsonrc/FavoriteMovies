@@ -16,6 +16,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "SERVER_URL", '"https://api.themoviedb.org/3/"'
+        buildConfigField "String", "API_KEY", FavoriteMovies_ApiKey
     }
     buildTypes {
         release {

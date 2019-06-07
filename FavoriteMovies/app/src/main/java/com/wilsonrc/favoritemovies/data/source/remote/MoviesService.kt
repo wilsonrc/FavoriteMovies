@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface MoviesService {
 
-    @GET("/discover/movie")
-    fun getAllMovies(@Query("sort") sortBy : String , @Query("year") year : String) : Observable<DiscoverResponse>
+    @GET("discover/movie")
+    fun getAllMovies(@Query("sort") sortBy : String , @Query("year")year : String ,  @Query("api_key") apiKey :String) : Observable<DiscoverResponse>
 
 }
