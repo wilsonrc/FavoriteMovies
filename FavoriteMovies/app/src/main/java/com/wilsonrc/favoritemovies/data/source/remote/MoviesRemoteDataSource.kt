@@ -3,6 +3,7 @@ package com.wilsonrc.favoritemovies.data.source.remote
 import com.wilsonrc.favoritemovies.BuildConfig
 import com.wilsonrc.favoritemovies.data.models.Movie
 import com.wilsonrc.favoritemovies.data.source.MoviesDataSource
+import com.wilsonrc.favoritemovies.utils.DateTool
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -11,7 +12,7 @@ import javax.inject.Inject
 class MoviesRemoteDataSource @Inject constructor(private val moviesService: MoviesService) : MoviesDataSource {
 
     override fun getMovies(): Observable<List<Movie>> {
-        return moviesService.getAllMovies("release_date.desc", "2019", BuildConfig.API_KEY)
+        return moviesService.getAllMovies("release_date.desc", DateTool.getCurrentYear().toString(), BuildConfig.API_KEY)
             .flatMap {
                 Observable.just(it.movies)
             }
