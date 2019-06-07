@@ -2,8 +2,9 @@ package com.wilsonrc.favoritemovies.ui.movies
 
 import android.os.Bundle
 import com.wilsonrc.favoritemovies.R
-import com.wilsonrc.favoritemovies.utils.replaceFragmentSafely
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_movies.*
+
 
 class MoviesActivity : DaggerAppCompatActivity() {
 
@@ -11,9 +12,13 @@ class MoviesActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
-        val moviesFragment = MoviesFragment.newInstance()
+//        replaceFragmentSafely(moviesFragment, "GeneralMoviesFragment", true, R.id.fragmentContainer)
 
-        replaceFragmentSafely(moviesFragment, "GeneralMoviesFragment", true, R.id.fragmentContainer)
+        val adapter = TabAdapter(supportFragmentManager)
+//        adapter.addFragment(MoviesFragment.newInstance("GENERAL"), "General")
+//        adapter.addFragment(FavoriteFragments.newInstance("FAVORITES"), "Favorites")
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
 
     }
 }

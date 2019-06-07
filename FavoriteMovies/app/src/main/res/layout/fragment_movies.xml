@@ -5,27 +5,9 @@
                 android:layout_height="match_parent"
                 tools:context=".ui.movies.MoviesFragment">
 
-    <ProgressBar
-            android:id="@+id/progressBar"
-            android:visibility="gone"
-            android:layout_centerInParent="true"
-            style="@style/Base.Widget.AppCompat.ProgressBar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"/>
 
-    <TextView
-            android:id="@+id/tvNoMovies"
-            android:visibility="gone"
-            android:textSize="36sp"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movies_no_movies_available_message"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMovies"
-            android:visibility="gone"
+    <include
+            layout="@layout/fragment_movies_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

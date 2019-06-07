@@ -13,18 +13,16 @@ import com.wilsonrc.favoritemovies.R
 import com.wilsonrc.favoritemovies.data.models.Movie
 import com.wilsonrc.favoritemovies.utils.DisplayTools
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_movies.*
-import kotlinx.android.synthetic.main.fragment_movies.view.*
+import kotlinx.android.synthetic.main.fragment_movies_content.*
+import kotlinx.android.synthetic.main.fragment_movies_content.view.*
 import javax.inject.Inject
 
 class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.ActionListener {
 
+    private val DATA_TYPE = "DATA_TYPE"
+    private val FAVORITE_DATA = "FAVORITE"
 
-    private val ARG_PARAM1 = "param1"
-    private val ARG_PARAM2 = "param2"
-
-    private var param1: String? = null
-    private var param2: String? = null
+    private var isGeneral: Boolean = false
 
     @Inject
     lateinit var presenter: MoviesContract.Presenter<MoviesContract.View>
@@ -40,9 +38,9 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         presenter.attach(this@MoviesFragment)
 
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            isGeneral = "GENERAL" == it.getString(DATA_TYPE, "GENERAL")
         }
+
     }
 
     override fun onCreateView(
@@ -59,16 +57,28 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         }
         rootView?.rvMovies?.adapter = adapter
 
-        presenter.loadMovies()
+        if(isGeneral){
+            presenter.loadMovies()
+        }else{
+            presenter.loadFavoriteMovies()
+        }
 
         return rootView
     }
 
+
     companion object {
-        fun newInstance() = MoviesFragment()
+
+        fun newInstance(typeOfData: String) =
+            MoviesFragment().apply {
+                arguments = Bundle().apply {
+                    putString(DATA_TYPE, typeOfData)
+                }
+            }
     }
 
-    override fun showMovies(movies: List<Movie>) {
+
+        override fun showMovies(movies: List<Movie>) {
         tvNoMovies?.visibility = View.GONE
         rvMovies?.visibility = View.VISIBLE
         adapter?.addData(movies)

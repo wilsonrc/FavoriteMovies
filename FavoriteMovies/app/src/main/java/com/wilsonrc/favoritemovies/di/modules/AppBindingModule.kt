@@ -1,6 +1,7 @@
 package com.wilsonrc.favoritemovies.di.modules
 
 import com.wilsonrc.favoritemovies.di.scope.ActivityScope
+import com.wilsonrc.favoritemovies.di.scope.FragmentScope
 import com.wilsonrc.favoritemovies.ui.movies.MoviesActivity
 import com.wilsonrc.favoritemovies.ui.movies.di.MoviesActivityModule
 import dagger.Module
