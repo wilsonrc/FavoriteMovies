@@ -9,6 +9,11 @@ import javax.inject.Inject
 
 class MoviesLocalDataSource @Inject constructor(private val moviesDao: MoviesDao) : MoviesDataSource {
 
+
+    override fun searchMovies(query: String): Single<List<Movie>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getMovies(): Observable<List<Movie>> {
         return moviesDao.getAllMovies()
             .toObservable()

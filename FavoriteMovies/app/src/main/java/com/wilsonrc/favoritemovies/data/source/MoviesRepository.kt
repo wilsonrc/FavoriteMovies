@@ -29,6 +29,10 @@ class MoviesRepository @Inject constructor(
             })
     }
 
+    override fun searchMovies(query: String): Single<List<Movie>> {
+        return moviesRemoteDataSource.searchMovies(query)
+    }
+
     override fun getMovieDetail(id: Int): Single<Movie> {
         return moviesRemoteDataSource.getMovieDetail(id)
     }

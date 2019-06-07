@@ -9,6 +9,8 @@ interface MoviesDataSource {
 
     fun getMovies() : Observable<List<Movie>>
 
+    fun searchMovies(query : String) : Single<List<Movie>>
+
     fun getMovieDetail(id : Int) : Single<Movie>
 
     fun getFavMovies() : Single<List<Movie>>

@@ -88,6 +88,9 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.0.2"
     implementation 'com.google.android.material:material:1.1.0-alpha06'
 
+    //Material SearchView
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"

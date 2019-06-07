@@ -1,9 +1,12 @@
 package com.wilsonrc.favoritemovies.ui.movies
 
 import android.os.Bundle
+import android.view.Menu
 import com.wilsonrc.favoritemovies.R
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_movies.*
+import com.miguelcatalan.materialsearchview.MaterialSearchView
+
 
 
 class MoviesActivity : DaggerAppCompatActivity() {
@@ -12,13 +15,42 @@ class MoviesActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
-//        replaceFragmentSafely(moviesFragment, "GeneralMoviesFragment", true, R.id.fragmentContainer)
-
         val adapter = TabAdapter(supportFragmentManager)
-//        adapter.addFragment(MoviesFragment.newInstance("GENERAL"), "General")
-//        adapter.addFragment(FavoriteFragments.newInstance("FAVORITES"), "Favorites")
+        setSupportActionBar(toolbar)
+
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
 
+        searchView.setVoiceSearch(false)
+        searchView?.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                //Do some magic
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                //Do some magic
+                return false
+            }
+        })
+
+        searchView?.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
+            override fun onSearchViewShown() {
+                //Do some magic
+            }
+
+            override fun onSearchViewClosed() {
+                //Do some magic
+            }
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(com.wilsonrc.favoritemovies.R.menu.movies_menu, menu)
+
+        val item = menu?.findItem(R.id.action_search)
+        searchView?.setMenuItem(item)
+
+        return true
     }
 }
