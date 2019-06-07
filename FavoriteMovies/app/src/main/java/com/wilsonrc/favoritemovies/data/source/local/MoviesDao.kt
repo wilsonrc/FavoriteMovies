@@ -3,10 +3,6 @@ package com.wilsonrc.favoritemovies.data.source.local
 import androidx.room.*
 import com.wilsonrc.favoritemovies.data.models.Movie
 import io.reactivex.Single
-import android.provider.SyncStateContract.Helpers.update
-
-
-
 
 @Dao
 interface MoviesDao {

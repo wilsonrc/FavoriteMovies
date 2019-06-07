@@ -1,6 +1,7 @@
 package com.wilsonrc.favoritemovies.data.source.remote.di
 
 import com.wilsonrc.favoritemovies.BuildConfig
+import com.wilsonrc.favoritemovies.utils.ApiKeyInterceptor
 import com.wilsonrc.favoritemovies.utils.LoggingInterceptor
 import dagger.Module
 import dagger.Provides
@@ -29,8 +30,9 @@ object NetworkModule {
     @Provides
     @Reusable
     @JvmStatic
-    internal fun provideOkHttpClient(loggingInterceptor: LoggingInterceptor): OkHttpClient {
+    internal fun provideOkHttpClient(loggingInterceptor: LoggingInterceptor, apiKeyInterceptor: ApiKeyInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(apiKeyInterceptor)
             .addInterceptor(loggingInterceptor)
             .build()
 
@@ -41,5 +43,12 @@ object NetworkModule {
     internal fun provideLoggingInterceptor(): LoggingInterceptor {
         return LoggingInterceptor()
     }
+
+    @Provides
+    @JvmStatic
+    internal fun provideApiKeyInterceptor(): ApiKeyInterceptor {
+        return ApiKeyInterceptor()
+    }
+
 
 }

@@ -11,14 +11,13 @@ import javax.inject.Inject
 
 class MoviesRemoteDataSource @Inject constructor(private val moviesService: MoviesService) : MoviesDataSource {
     override fun getMovieDetail(id: Int): Single<Movie> {
-        return moviesService.getMovieDetails(id, BuildConfig.API_KEY)
+        return moviesService.getMovieDetails(id)
     }
 
     override fun getMovies(): Observable<List<Movie>> {
         return moviesService.getAllMovies(
             "release_date.desc",
-            DateTool.getCurrentYear().toString(),
-            BuildConfig.API_KEY
+            DateTool.getCurrentYear().toString()
         )
             .flatMap {
                 Observable.just(it.movies)

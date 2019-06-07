@@ -11,9 +11,9 @@ import retrofit2.http.Query
 interface MoviesService {
 
     @GET("discover/movie")
-    fun getAllMovies(@Query("sort") sortBy : String , @Query("year")year : String ,  @Query("api_key") apiKey :String) : Observable<DiscoverResponse>
+    fun getAllMovies(@Query("sort") sortBy : String , @Query("year")year : String) : Observable<DiscoverResponse>
 
     @GET("movie/{id}")
-    fun getMovieDetails(@Path("id") id: Int, @Query("api_key") apiKey :String) : Single<Movie>
+    fun getMovieDetails(@Path("id") id: Int) : Single<Movie>
 
 }
