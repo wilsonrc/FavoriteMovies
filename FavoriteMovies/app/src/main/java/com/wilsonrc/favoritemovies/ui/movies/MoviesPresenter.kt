@@ -67,7 +67,7 @@ class MoviesPresenter @Inject constructor(private val moviesRepository: MoviesRe
     }
 
     override fun saveFavMovie(movie: Movie) {
-        val disposable = moviesRepository.saveFavMovies(movie)
+        val disposable = moviesRepository.saveFavMovie(movie)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableCompletableObserver() {
@@ -85,7 +85,7 @@ class MoviesPresenter @Inject constructor(private val moviesRepository: MoviesRe
     }
 
     override fun deleteFavMovie(movie: Movie) {
-        val disposable = moviesRepository.deleteFavMovies(movie)
+        val disposable = moviesRepository.deleteFavMovie(movie)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableCompletableObserver() {

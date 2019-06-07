@@ -21,12 +21,16 @@ class MoviesRepository @Inject constructor(
         return moviesLocalDataSource.getFavMovies()
     }
 
-    override fun saveFavMovies(movie: Movie): Completable {
-        return moviesLocalDataSource.saveFavMovies(movie)
+    override fun saveMovies(movies: List<Movie>): Completable {
+        return moviesLocalDataSource.saveMovies(movies)
     }
 
-    override fun deleteFavMovies(movie: Movie): Completable {
-        return moviesLocalDataSource.deleteFavMovies(movie)
+    override fun saveFavMovie(movie: Movie): Completable {
+        return moviesLocalDataSource.saveFavMovie(movie)
+    }
+
+    override fun deleteFavMovie(movie: Movie): Completable {
+        return moviesLocalDataSource.deleteFavMovie(movie)
     }
 
 }

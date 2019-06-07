@@ -11,8 +11,10 @@ interface MoviesDataSource {
 
     fun getFavMovies() : Single<List<Movie>>
 
-    fun saveFavMovies(movie: Movie) : Completable
+    fun saveMovies(movies: List<Movie>) : Completable
 
-    fun deleteFavMovies(movie: Movie) : Completable
+    fun saveFavMovie(movie: Movie) : Completable
+
+    fun deleteFavMovie(movie: Movie) : Completable
 
 }
