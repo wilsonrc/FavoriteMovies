@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.wilsonrc.favoritemovies">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:name=".base.BaseApp"
@@ -12,7 +12,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.movies.MoviesActivity">
+        <activity android:parentActivityName=".ui.movies.MoviesActivity"
+                  android:name=".ui.moviedetails.MovieDetailsActivity">
+        </activity>
+        <activity android:name=".ui.movies.MoviesActivity"
+         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

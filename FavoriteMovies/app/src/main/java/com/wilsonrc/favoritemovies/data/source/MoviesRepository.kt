@@ -17,6 +17,10 @@ class MoviesRepository @Inject constructor(
         return moviesRemoteDataSource.getMovies()
     }
 
+    override fun getMovieDetail(id: Int): Single<Movie> {
+        return moviesRemoteDataSource.getMovieDetail(id)
+    }
+
     override fun getFavMovies(): Single<List<Movie>> {
         return moviesLocalDataSource.getFavMovies()
     }

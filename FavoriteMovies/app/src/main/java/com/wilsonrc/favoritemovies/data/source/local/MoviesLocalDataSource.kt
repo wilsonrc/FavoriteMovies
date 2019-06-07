@@ -14,6 +14,10 @@ class MoviesLocalDataSource @Inject constructor(private val moviesDao: MoviesDao
             .toObservable()
     }
 
+    override fun getMovieDetail(id: Int): Single<Movie> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getFavMovies(): Single<List<Movie>> {
        return moviesDao.getFavoriteMovies()
     }

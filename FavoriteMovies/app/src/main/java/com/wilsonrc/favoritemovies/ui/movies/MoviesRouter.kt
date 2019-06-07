@@ -1,12 +1,16 @@
 package com.wilsonrc.favoritemovies.ui.movies
 
+import android.content.Intent
 import com.wilsonrc.favoritemovies.data.models.Movie
+import com.wilsonrc.favoritemovies.ui.moviedetails.MovieDetailsActivity
 import javax.inject.Inject
 
-class MoviesRouter @Inject constructor(activity: MoviesActivity): MoviesContract.Router {
+class MoviesRouter @Inject constructor(private val activity: MoviesActivity) : MoviesContract.Router {
 
     override fun goToMovieDetail(movie: Movie) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent = Intent(activity, MovieDetailsActivity::class.java)
+        intent.putExtra("MOVIE_ID", movie.id)
+        activity.startActivity(intent)
     }
 
 }

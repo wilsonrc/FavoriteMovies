@@ -113,4 +113,8 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         router.goToMovieDetail(movie)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detach()
+    }
 }

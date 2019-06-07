@@ -1,4 +1,6 @@
-package com.wilsonrc.favoritemovies.ui.moviedetails.di
+package com.wilsonrc.favoritemovies.ui.moviedetails
 
-class MovieDetailsRouter {
+import javax.inject.Inject
+
+class MovieDetailsRouter@Inject constructor(private val activity: MovieDetailsActivity) : MovieDetailsContract.Router{
 }
