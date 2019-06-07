@@ -6,6 +6,7 @@ import com.wilsonrc.favoritemovies.data.source.remote.MoviesRemoteDataSource
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
@@ -13,18 +14,19 @@ class MoviesRepository @Inject constructor(
     private val moviesLocalDataSource: MoviesLocalDataSource
 ) : MoviesDataSource {
 
-    private var isCached: Boolean = false
-
     override fun getMovies(): Observable<List<Movie>> {
-        return    moviesRemoteDataSource.getMovies()
-//        } else {
-//            moviesRemoteDataSource.getMovies()
-//                .map { movies ->
-//                    saveMovies(movies)
-//                    isCached = true
-//                    movies
-//                }
-//        }
+        val local = moviesLocalDataSource.getFavMovies().toObservable()
+        return moviesRemoteDataSource.getMovies()
+            .zipWith(local, BiFunction<List<Movie>, List<Movie>, List<Movie>> { remoteMovies, localMovies ->
+                val favoriteIds = localMovies.map { it.id }
+                favoriteIds.forEach { localId ->
+                    val movie = remoteMovies.find { remote -> remote.id == localId }
+                    if (movie != null) {
+                        movie.isFavorite = true
+                    }
+                }
+                remoteMovies
+            })
     }
 
     override fun getMovieDetail(id: Int): Single<Movie> {
