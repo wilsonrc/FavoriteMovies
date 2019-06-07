@@ -18,15 +18,20 @@ class MoviesRemoteDataSource @Inject constructor(private val moviesService: Movi
             }
     }
 
+    override fun saveMovies(movies: List<Movie>): Completable {
+        throw Exception("Save Movies to Remote is not Allowed.")
+    }
+
     override fun getFavMovies(): Single<List<Movie>> {
         throw Exception("Get Fav Movies From Remote is not Allowed.")
     }
 
-    override fun saveFavMovies(movie: Movie): Completable {
+    override fun saveFavMovie(movie: Movie): Completable {
         throw Exception("Save Fav Movies to Remote is not Allowed.")
     }
 
-    override fun deleteFavMovies(movie: Movie): Completable {
+    override fun deleteFavMovie(movie: Movie): Completable {
         throw Exception("Delete Fav Movies from Remote is not Allowed.")
     }
+    
 }

@@ -18,14 +18,20 @@ class MoviesLocalDataSource @Inject constructor(private val moviesDao: MoviesDao
        return moviesDao.getFavoriteMovies()
     }
 
-    override fun saveFavMovies(movie: Movie): Completable {
+    override fun saveMovies(movies: List<Movie>): Completable {
+        return Completable.fromAction{
+            moviesDao.saveAll(movies)
+        }
+    }
+
+    override fun saveFavMovie(movie: Movie): Completable {
         return Completable.fromAction{
             movie.isFavorite = true
             moviesDao.update(movie)
         }
     }
 
-    override fun deleteFavMovies(movie: Movie): Completable {
+    override fun deleteFavMovie(movie: Movie): Completable {
         return Completable.fromAction{
             movie.isFavorite = false
             moviesDao.update(movie)

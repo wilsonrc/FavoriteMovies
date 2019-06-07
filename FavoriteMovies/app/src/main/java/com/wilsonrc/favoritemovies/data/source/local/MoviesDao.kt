@@ -14,7 +14,7 @@ interface MoviesDao {
     @Query("SELECT * FROM Movies where isFavorite = 1")
     fun getFavoriteMovies(): Single<List<Movie>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     fun saveAll(movies: List<Movie>)
 
     @Update
