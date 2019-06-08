@@ -21,11 +21,13 @@ class MovieDetailsActivity : DaggerAppCompatActivity(), MovieDetailsContract.Vie
     @Inject
     lateinit var router: MovieDetailsContract.Router
 
+    private val MOVIE_ID = "MOVIE_ID"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
         presenter.attach(this@MovieDetailsActivity)
-        val id = intent.extras.getInt("MOVIE_ID")
+        val id = intent?.extras?.getInt(MOVIE_ID) ?: 0
         presenter.loadMovieDetails(id)
     }
 

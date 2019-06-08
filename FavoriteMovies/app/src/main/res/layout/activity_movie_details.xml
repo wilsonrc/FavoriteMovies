@@ -17,7 +17,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/movies_no_movies_available_message"/>
+                android:text="@string/movies_no_movies_details_available_message"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/movieDetailsContainer"
