@@ -22,7 +22,11 @@ class SearchPresenter @Inject constructor(private val moviesRepository: MoviesRe
             .subscribeWith(object : DisposableSingleObserver<List<Movie>>() {
                 override fun onSuccess(results: List<Movie>) {
                     view?.hideLoadingProgress()
-                    view?.showResults(results)
+                    if(results.isNotEmpty()){
+                        view?.showResults(results)
+                    }else{
+                        view?.showNoResults()
+                    }
                 }
 
                 override fun onError(e: Throwable) {

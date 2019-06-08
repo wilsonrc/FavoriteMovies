@@ -16,13 +16,12 @@ class MoviesActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
-        val adapter = TabAdapter(supportFragmentManager)
-        setSupportActionBar(toolbar)
+        setupUi()
 
-        viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+        setupEvents()
+    }
 
-        searchView.setVoiceSearch(false)
+    private fun setupEvents() {
         searchView?.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 val intent = Intent(this@MoviesActivity, SearchActivity::class.java)
@@ -37,15 +36,16 @@ class MoviesActivity : DaggerAppCompatActivity() {
             }
         })
 
-        searchView?.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
-            override fun onSearchViewShown() {
-                //Do some magic
-            }
+    }
 
-            override fun onSearchViewClosed() {
-                //Do some magic
-            }
-        })
+    private fun setupUi() {
+        val adapter = TabAdapter(supportFragmentManager)
+        setSupportActionBar(toolbar)
+
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
+
+        searchView.setVoiceSearch(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
