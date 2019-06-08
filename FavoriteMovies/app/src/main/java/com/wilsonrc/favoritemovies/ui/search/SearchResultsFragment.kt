@@ -1,4 +1,4 @@
-package com.wilsonrc.favoritemovies.ui.movies
+package com.wilsonrc.favoritemovies.ui.search
 
 import android.app.Activity
 import android.content.Context
@@ -8,36 +8,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-
 import com.wilsonrc.favoritemovies.R
 import com.wilsonrc.favoritemovies.data.models.Movie
+import com.wilsonrc.favoritemovies.ui.movies.MoviesContract
 import com.wilsonrc.favoritemovies.utils.DisplayTools
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_movies_content.*
 import kotlinx.android.synthetic.main.fragment_movies_content.view.*
 import javax.inject.Inject
 
-class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.ActionListener {
+class SearchResultsFragment : DaggerFragment(), SearchContract.View, SearchContract.ActionListener {
 
-    private val DATA_TYPE = "DATA_TYPE"
-
-    private var isGeneral: Boolean = false
+    private val SEARCH_QUERY = "SEARCH_QUERY"
 
     @Inject
-    lateinit var presenter: MoviesContract.Presenter<MoviesContract.View>
+    lateinit var presenter: SearchContract.Presenter<SearchContract.View>
 
     @Inject
-    lateinit var router: MoviesContract.Router
+    lateinit var router: SearchContract.Router
 
-    private var adapter: MoviesAdapter? = null
+    private var currentQuery : String = ""
+
+    private var adapter: SearchResultsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter.attach(this@MoviesFragment)
+        presenter.attach(this@SearchResultsFragment)
 
         arguments?.let {
-            isGeneral = "GENERAL" == it.getString(DATA_TYPE, "GENERAL")
+            currentQuery = it.getString(SEARCH_QUERY, "")
         }
 
     }
@@ -46,9 +46,10 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val rootView = inflater.inflate(R.layout.fragment_movies, container, false)
 
-        adapter = MoviesAdapter(activity as Context, mutableListOf(), this@MoviesFragment)
+        adapter = SearchResultsAdapter(activity as Context, mutableListOf(), this@SearchResultsFragment)
         if (DisplayTools.isTabletDisplay(activity as Activity)) {
             rootView?.rvMovies?.layoutManager = GridLayoutManager(activity, 4)
         } else {
@@ -56,25 +57,22 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         }
         rootView?.rvMovies?.adapter = adapter
 
-        if (isGeneral) {
-            presenter.loadMovies()
-        } else {
-            presenter.loadFavoriteMovies()
-        }
 
+        if(currentQuery.isNotEmpty()){
+            presenter.loadSearchResults(currentQuery)
+        }
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         swipeContainer?.setOnRefreshListener {
-            if (isGeneral) {
-                adapter?.resetData()
-                presenter.loadMovies()
-            } else {
-                adapter?.resetData()
-                presenter.loadFavoriteMovies()
+            adapter?.resetData()
+
+            if(currentQuery.isNotEmpty()){
+                presenter.loadSearchResults(currentQuery)
             }
+
         }
         swipeContainer?.setColorSchemeResources(
             R.color.accent,
@@ -82,25 +80,25 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         )
     }
 
+
     companion object {
 
-        fun newInstance(typeOfData: String) =
-            MoviesFragment().apply {
+        fun newInstance(query: String) =
+            SearchResultsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(DATA_TYPE, typeOfData)
+                    putString(SEARCH_QUERY, query)
                 }
             }
+
     }
 
-
-    override fun showMovies(movies: List<Movie>) {
-        swipeContainer.isRefreshing = false
+    override fun showResults(movies: List<Movie>) {
         tvNoMovies?.visibility = View.GONE
         rvMovies?.visibility = View.VISIBLE
-        adapter?.addData(movies)
+        adapter?.replaceData(movies)
     }
 
-    override fun showNoMovies() {
+    override fun showNoResults() {
         swipeContainer.isRefreshing = false
         rvMovies?.visibility = View.GONE
         tvNoMovies?.visibility = View.VISIBLE
@@ -127,11 +125,12 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
     }
 
     override fun onMovieClicked(movie: Movie) {
-        router.goToMovieDetail(movie)
+        router.goToMovieDetails(movie)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         presenter.detach()
     }
+
 }

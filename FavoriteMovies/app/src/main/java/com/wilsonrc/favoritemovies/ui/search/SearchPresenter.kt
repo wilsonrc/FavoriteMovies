@@ -1,68 +1,37 @@
-package com.wilsonrc.favoritemovies.ui.movies
+package com.wilsonrc.favoritemovies.ui.search
 
 import com.wilsonrc.favoritemovies.data.models.Movie
 import com.wilsonrc.favoritemovies.data.source.MoviesRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableCompletableObserver
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MoviesPresenter @Inject constructor(private val moviesRepository: MoviesRepository) :
-    MoviesContract.Presenter<MoviesContract.View> {
+class SearchPresenter @Inject constructor(private val moviesRepository: MoviesRepository) : SearchContract.Presenter<SearchContract.View> {
 
     private var disposables: CompositeDisposable = CompositeDisposable()
-    private var view: MoviesContract.View? = null
+    private var view: SearchContract.View? = null
 
-    override fun loadMovies(forceFetch: Boolean) {
+    override fun loadSearchResults(query: String) {
         view?.showLoadingProgress()
-        val disposable = moviesRepository.getMovies()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableObserver<List<Movie>>() {
-                override fun onComplete() {
-                }
-
-                override fun onNext(movies: List<Movie>) {
-                    view?.hideLoadingProgress()
-                    view?.showMovies(movies)
-                }
-
-                override fun onError(e: Throwable) {
-                    view?.hideLoadingProgress()
-                    view?.showMessage("Error", "Error while loading list of movies")
-                    view?.showNoMovies()
-                    e.printStackTrace()
-                }
-            })
-
-        disposables.add(disposable)
-    }
-
-    override fun loadFavoriteMovies() {
-        view?.showLoadingProgress()
-        val disposable = moviesRepository.getFavMovies()
+        val disposable = moviesRepository.searchMovies(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableSingleObserver<List<Movie>>() {
-                override fun onSuccess(movies: List<Movie>) {
+                override fun onSuccess(results: List<Movie>) {
                     view?.hideLoadingProgress()
-                    if (movies.isNotEmpty()) {
-                        view?.showMovies(movies)
-                    } else {
-                        view?.showNoMovies()
-                    }
+                    view?.showResults(results)
                 }
 
                 override fun onError(e: Throwable) {
                     view?.hideLoadingProgress()
-                    view?.showMessage("Error", "Error while loading your favorite movies")
+                    view?.showNoResults()
                     e.printStackTrace()
                 }
-
             })
+
         disposables.add(disposable)
     }
 
@@ -102,7 +71,7 @@ class MoviesPresenter @Inject constructor(private val moviesRepository: MoviesRe
         disposables.add(disposable)
     }
 
-    override fun attach(view: MoviesContract.View) {
+    override fun attach(view: SearchContract.View) {
         this.view = view
     }
 

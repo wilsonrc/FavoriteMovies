@@ -17,4 +17,5 @@ abstract class MoviesFragmentModule{
     @Binds
     @FragmentScope
     abstract fun provideMoviesRouter(moviesRouter: MoviesRouter): MoviesContract.Router
+
 }

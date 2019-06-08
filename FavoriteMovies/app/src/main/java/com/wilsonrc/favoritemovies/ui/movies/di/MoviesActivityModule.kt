@@ -12,6 +12,4 @@ abstract class MoviesActivityModule {
     @FragmentScope
     abstract fun provideMoviesFragment(): MoviesFragment
 
-
-
 }

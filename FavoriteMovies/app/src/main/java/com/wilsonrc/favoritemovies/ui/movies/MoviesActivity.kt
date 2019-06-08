@@ -1,12 +1,13 @@
 package com.wilsonrc.favoritemovies.ui.movies
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import com.wilsonrc.favoritemovies.R
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_movies.*
 import com.miguelcatalan.materialsearchview.MaterialSearchView
-
+import com.wilsonrc.favoritemovies.ui.search.SearchActivity
 
 
 class MoviesActivity : DaggerAppCompatActivity() {
@@ -24,7 +25,8 @@ class MoviesActivity : DaggerAppCompatActivity() {
         searchView.setVoiceSearch(false)
         searchView?.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                //Do some magic
+                val intent = Intent(this@MoviesActivity, SearchActivity::class.java)
+                startActivity(intent)
                 return false
             }
 

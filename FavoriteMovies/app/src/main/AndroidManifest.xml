@@ -12,11 +12,15 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:parentActivityName=".ui.movies.MoviesActivity"
-                  android:name=".ui.moviedetails.MovieDetailsActivity">
+        <activity android:theme="@style/AppTheme.NoActionBar" android:name=".ui.search.SearchActivity">
         </activity>
-        <activity android:name=".ui.movies.MoviesActivity"
-         android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".ui.moviedetails.MovieDetailsActivity"
+                android:parentActivityName=".ui.movies.MoviesActivity">
+        </activity>
+        <activity
+                android:name=".ui.movies.MoviesActivity"
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
