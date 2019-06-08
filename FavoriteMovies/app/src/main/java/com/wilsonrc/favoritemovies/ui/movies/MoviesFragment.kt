@@ -70,7 +70,7 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
         swipeContainer?.setOnRefreshListener {
             if (isGeneral) {
                 adapter?.resetData()
-                presenter.loadMovies()
+                presenter.loadMovies(true)
             } else {
                 adapter?.resetData()
                 presenter.loadFavoriteMovies()

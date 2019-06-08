@@ -6,7 +6,9 @@ import com.wilsonrc.favoritemovies.data.source.remote.MoviesRemoteDataSource
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.functions.BiFunction
+import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
@@ -14,19 +16,36 @@ class MoviesRepository @Inject constructor(
     private val moviesLocalDataSource: MoviesLocalDataSource
 ) : MoviesDataSource {
 
-    override fun getMovies(): Observable<List<Movie>> {
-        val local = moviesLocalDataSource.getFavMovies().toObservable()
-        return moviesRemoteDataSource.getMovies()
-            .zipWith(local, BiFunction<List<Movie>, List<Movie>, List<Movie>> { remoteMovies, localMovies ->
-                val favoriteIds = localMovies.map { it.id }
-                favoriteIds.forEach { localId ->
-                    val movie = remoteMovies.find { remote -> remote.id == localId }
-                    if (movie != null) {
-                        movie.isFavorite = true
+    override fun getMovies(forceFetch: Boolean): Observable<List<Movie>> {
+        val allLocalMoviesObservable = moviesLocalDataSource.getMovies()
+        val localFavoriteMoviesObservable = moviesLocalDataSource.getFavMovies().toObservable()
+
+        val remoteMoviesObservable = moviesRemoteDataSource.getMovies()
+            .zipWith(
+                localFavoriteMoviesObservable,
+                BiFunction<List<Movie>, List<Movie>, List<Movie>> { remoteMovies, localMovies ->
+                    val favoriteIds = localMovies.map { it.id }
+                    favoriteIds.forEach { localId ->
+                        val movie = remoteMovies.find { remote -> remote.id == localId }
+                        if (movie != null) {
+                            movie.isFavorite = true
+                        }
                     }
-                }
-                remoteMovies
-            })
+                    moviesLocalDataSource.saveMovies(remoteMovies).subscribe()
+
+                    remoteMovies
+                })
+
+        return allLocalMoviesObservable.flatMap {
+            Observable.just(it.isNotEmpty())
+        }.flatMap {
+            if (it && !forceFetch) {
+                allLocalMoviesObservable
+            } else {
+                remoteMoviesObservable
+            }
+        }
+
     }
 
     override fun searchMovies(query: String): Single<List<Movie>> {

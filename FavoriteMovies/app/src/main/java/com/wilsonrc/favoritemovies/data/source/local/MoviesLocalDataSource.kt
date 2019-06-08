@@ -14,7 +14,7 @@ class MoviesLocalDataSource @Inject constructor(private val moviesDao: MoviesDao
         return moviesDao.searchMovies(query)
     }
 
-    override fun getMovies(): Observable<List<Movie>> {
+    override fun getMovies(forceFetch : Boolean): Observable<List<Movie>> {
         return moviesDao.getAllMovies()
             .toObservable()
     }
@@ -23,13 +23,16 @@ class MoviesLocalDataSource @Inject constructor(private val moviesDao: MoviesDao
         throw Exception("Get Movie Details from local Source is not Allowed.")
     }
 
+
     override fun getFavMovies(): Single<List<Movie>> {
        return moviesDao.getFavoriteMovies()
     }
 
     override fun saveMovies(movies: List<Movie>): Completable {
         return Completable.fromAction{
-            moviesDao.saveAll(movies)
+            for(currentMovie in movies){
+                saveOrUpdate(currentMovie)
+            }
         }
     }
 

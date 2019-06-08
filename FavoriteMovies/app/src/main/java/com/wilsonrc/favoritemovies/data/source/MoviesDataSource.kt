@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface MoviesDataSource {
 
-    fun getMovies() : Observable<List<Movie>>
+    fun getMovies(forceFetch : Boolean = false) : Observable<List<Movie>>
 
     fun searchMovies(query : String) : Single<List<Movie>>
 

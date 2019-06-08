@@ -18,7 +18,7 @@ class MoviesPresenter @Inject constructor(private val moviesRepository: MoviesRe
 
     override fun loadMovies(forceFetch: Boolean) {
         view?.showLoadingProgress()
-        val disposable = moviesRepository.getMovies()
+        val disposable = moviesRepository.getMovies(forceFetch)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableObserver<List<Movie>>() {

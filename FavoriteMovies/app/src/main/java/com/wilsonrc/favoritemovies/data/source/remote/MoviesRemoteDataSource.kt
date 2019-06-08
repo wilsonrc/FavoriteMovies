@@ -14,7 +14,7 @@ class MoviesRemoteDataSource @Inject constructor(private val moviesService: Movi
         return moviesService.getDetails(id)
     }
 
-    override fun getMovies(): Observable<List<Movie>> {
+    override fun getMovies(forceFetch : Boolean): Observable<List<Movie>> {
         return moviesService.getAll(
             "release_date.desc",
             DateTool.getCurrentYear().toString()
