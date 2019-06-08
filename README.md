@@ -8,11 +8,15 @@ This Simple Android application to show Movies from the Movie DB API https://www
 ## Movie Details
 <img src="https://raw.githubusercontent.com/wilsonrc/FavoriteMovies/master/ScreenShots/MovieDetailsScreen.PNG?raw=true" align="center" height="500px" width="282px"/>
 
+## Search Movies 
+<img src="https://raw.githubusercontent.com/wilsonrc/FavoriteMovies/master/ScreenShots/SearchMoviesScreen.PNG?raw=true" align="center" height="500px" width="282px"/>
+
 ## Actual features:
 + List of Movies.
 + Movie Details.
 + List of Favorite Movies
 + Save Movies to Favorites
++ Search Movies by Name
    
 ## App Architecture:
 + Kotlin
