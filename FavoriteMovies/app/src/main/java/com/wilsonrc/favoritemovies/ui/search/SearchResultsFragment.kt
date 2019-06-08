@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wilsonrc.favoritemovies.R
 import com.wilsonrc.favoritemovies.data.models.Movie
-import com.wilsonrc.favoritemovies.ui.movies.MoviesContract
 import com.wilsonrc.favoritemovies.utils.DisplayTools
 import com.wilsonrc.favoritemovies.utils.gone
 import com.wilsonrc.favoritemovies.utils.visible
@@ -95,6 +94,7 @@ class SearchResultsFragment : DaggerFragment(), SearchContract.View, SearchContr
     }
 
     override fun showResults(movies: List<Movie>) {
+        swipeContainer.isRefreshing = false
         tvNoMovies?.gone()
         rvMovies?.visible()
         adapter?.replaceData(movies)
