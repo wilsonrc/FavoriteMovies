@@ -8,15 +8,19 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 class TabAdapter internal constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    private val mFragmentList : MutableList<Fragment> = mutableListOf()
-    private val mFragmentTitleList :  MutableList<String> = mutableListOf()
+    private val mFragmentList: MutableList<Fragment> = mutableListOf()
+    private val mFragmentTitleList: MutableList<String> = mutableListOf()
 
-    init{
+    private val GENERAL_ARG = "GENERAL"
+    private val FAVORITES_ARG = "FAVORITES"
+    private val GENERAL_FRAGMENT_TITLE = "General"
+    private val FAVORITES_FRAGMENT_TITLE = "Favorites"
 
-        mFragmentList.add(MoviesFragment.newInstance("GENERAL"))
-        mFragmentTitleList.add("General")
-        mFragmentList.add(MoviesFragment.newInstance("FAVORITES"))
-        mFragmentTitleList.add("Favorites")
+    init {
+        mFragmentList.add(MoviesFragment.newInstance(GENERAL_ARG))
+        mFragmentTitleList.add(GENERAL_FRAGMENT_TITLE)
+        mFragmentList.add(MoviesFragment.newInstance(FAVORITES_ARG))
+        mFragmentTitleList.add(FAVORITES_FRAGMENT_TITLE)
     }
 
 

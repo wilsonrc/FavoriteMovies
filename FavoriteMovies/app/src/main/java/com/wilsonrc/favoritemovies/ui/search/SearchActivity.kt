@@ -18,19 +18,21 @@ class SearchActivity : DaggerAppCompatActivity() {
 
         setupEvents()
 
+        setupSearchView()
+
+    }
+
+    private fun setupSearchView() {
         searchView.setVoiceSearch(false)
         val searchQuery = intent?.extras?.getString("SEARCH_QUERY") ?: ""
 
         searchView.showSearch(false)
         searchView.setQuery(searchQuery, true)
-
     }
 
     private fun setupUi() {
         toolbar.title = "Search Movies"
         setSupportActionBar(toolbar)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,7 +54,6 @@ class SearchActivity : DaggerAppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                //Do some magic
                 return false
             }
         })

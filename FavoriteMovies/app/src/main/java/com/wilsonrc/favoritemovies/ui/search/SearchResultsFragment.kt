@@ -29,7 +29,7 @@ class SearchResultsFragment : DaggerFragment(), SearchContract.View, SearchContr
     @Inject
     lateinit var router: SearchContract.Router
 
-    private var currentQuery : String = ""
+    private var currentQuery: String = ""
 
     private var adapter: SearchResultsAdapter? = null
 
@@ -60,7 +60,7 @@ class SearchResultsFragment : DaggerFragment(), SearchContract.View, SearchContr
         rootView?.rvMovies?.adapter = adapter
 
 
-        if(currentQuery.isNotEmpty()){
+        if (currentQuery.isNotEmpty()) {
             presenter.loadSearchResults(currentQuery)
         }
         return rootView
@@ -71,7 +71,7 @@ class SearchResultsFragment : DaggerFragment(), SearchContract.View, SearchContr
         swipeContainer?.setOnRefreshListener {
             adapter?.resetData()
 
-            if(currentQuery.isNotEmpty()){
+            if (currentQuery.isNotEmpty()) {
                 presenter.loadSearchResults(currentQuery)
             }
 

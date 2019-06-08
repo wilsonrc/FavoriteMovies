@@ -18,10 +18,12 @@ class MoviesActivity : DaggerAppCompatActivity() {
 
         setupUi()
 
-        setupEvents()
+        setupSearchView()
     }
 
-    private fun setupEvents() {
+    private fun setupSearchView() {
+        searchView.setVoiceSearch(false)
+
         searchView?.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 val intent = Intent(this@MoviesActivity, SearchActivity::class.java)
@@ -31,7 +33,6 @@ class MoviesActivity : DaggerAppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                //Do some magic
                 return false
             }
         })
@@ -44,8 +45,6 @@ class MoviesActivity : DaggerAppCompatActivity() {
 
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
-
-        searchView.setVoiceSearch(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -3,4 +3,6 @@
     <string name="title_movie_item">Titulo</string>
 
     <string name="movies_no_movies_available_message">There are no movies available :(</string>
+    <string name="movie_title_text_movie_detail">Movie Title</string>
+    <string name="default_overview_of_a_movie_text_movie_detail">Default Overview of a Movie</string>
 </resources>

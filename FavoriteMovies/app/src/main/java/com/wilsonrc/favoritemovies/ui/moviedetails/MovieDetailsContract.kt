@@ -21,9 +21,6 @@ interface MovieDetailsContract {
 
     }
 
-    interface Router {
-
-
-    }
+    interface Router
 
 }
