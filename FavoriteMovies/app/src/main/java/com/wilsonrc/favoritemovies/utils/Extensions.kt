@@ -1,5 +1,6 @@
 package com.wilsonrc.favoritemovies.utils
 
+import android.view.View
 import androidx.annotation.AnimRes
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
@@ -26,4 +27,16 @@ fun DaggerAppCompatActivity.replaceFragmentSafely(fragment: Fragment,
     } else if (allowStateLoss) {
         ft.commitAllowingStateLoss()
     }
+}
+
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
 }

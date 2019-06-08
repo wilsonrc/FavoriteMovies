@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.wilsonrc.favoritemovies.R
 import com.wilsonrc.favoritemovies.data.models.Movie
 import com.wilsonrc.favoritemovies.utils.DisplayTools
+import com.wilsonrc.favoritemovies.utils.gone
+import com.wilsonrc.favoritemovies.utils.visible
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_movies_content.*
 import kotlinx.android.synthetic.main.fragment_movies_content.view.*
@@ -95,23 +97,23 @@ class MoviesFragment : DaggerFragment(), MoviesContract.View, MoviesContract.Act
 
     override fun showMovies(movies: List<Movie>) {
         swipeContainer.isRefreshing = false
-        tvNoMovies?.visibility = View.GONE
-        rvMovies?.visibility = View.VISIBLE
+        tvNoMovies?.gone()
+        rvMovies?.visible()
         adapter?.addData(movies)
     }
 
     override fun showNoMovies() {
         swipeContainer.isRefreshing = false
-        rvMovies?.visibility = View.GONE
-        tvNoMovies?.visibility = View.VISIBLE
+        rvMovies?.gone()
+        tvNoMovies?.visible()
     }
 
     override fun showLoadingProgress() {
-        progressBar?.visibility = View.VISIBLE
+        progressBar?.visible()
     }
 
     override fun hideLoadingProgress() {
-        progressBar?.visibility = View.GONE
+        progressBar?.gone()
     }
 
     override fun showMessage(title: String, body: String) {

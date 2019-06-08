@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.wilsonrc.favoritemovies.R
 import com.wilsonrc.favoritemovies.data.models.Movie
 import kotlinx.android.synthetic.main.movies_item.view.*
@@ -39,7 +40,9 @@ class SearchResultsAdapter(
             itemView.tvTitle?.text = movie.title
             itemView.rbScore?.rating = (movie.voteAverage?.toFloat()?.div(2)) ?: 0.0f
             context?.let {
-                Glide.with(context).load("http://image.tmdb.org/t/p/w185/${movie.posterPath}").into(itemView.ivPoster)
+                Glide.with(context).load("http://image.tmdb.org/t/p/w185/${movie.posterPath}")
+                    .transition(withCrossFade())
+                    .into(itemView.ivPoster)
                 if (movie.isFavorite) {
                     itemView.btnFav?.setImageDrawable(
                         ContextCompat.getDrawable(

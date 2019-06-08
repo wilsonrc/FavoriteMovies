@@ -27,7 +27,8 @@ class MovieDetailsPresenter @Inject constructor(private val moviesRepository: Mo
 
                 override fun onError(e: Throwable) {
                     view?.hideLoadingProgress()
-                    view?.showMessage("Error", "Error while loading your favorite movies")
+                    view?.showNoMovieDetails()
+                    view?.showMessage("Error", "Error while loading the movie details.")
                     e.printStackTrace()
                 }
 

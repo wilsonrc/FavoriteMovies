@@ -27,7 +27,7 @@ class MoviesPresenter @Inject constructor(private val moviesRepository: MoviesRe
 
                 override fun onNext(movies: List<Movie>) {
                     view?.hideLoadingProgress()
-                    view?.showMovies(movies)
+                    view?.showMovies(movies.sortedByDescending { it.releaseDate })
                 }
 
                 override fun onError(e: Throwable) {
