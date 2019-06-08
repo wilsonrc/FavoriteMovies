@@ -11,7 +11,7 @@ class MoviesLocalDataSource @Inject constructor(private val moviesDao: MoviesDao
 
 
     override fun searchMovies(query: String): Single<List<Movie>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return moviesDao.searchMovies(query)
     }
 
     override fun getMovies(): Observable<List<Movie>> {
@@ -20,7 +20,7 @@ class MoviesLocalDataSource @Inject constructor(private val moviesDao: MoviesDao
     }
 
     override fun getMovieDetail(id: Int): Single<Movie> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        throw Exception("Get Movie Details from local Source is not Allowed.")
     }
 
     override fun getFavMovies(): Single<List<Movie>> {

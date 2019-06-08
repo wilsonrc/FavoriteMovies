@@ -10,6 +10,9 @@ interface MoviesDao {
     @Query("SELECT * FROM Movies")
     fun getAllMovies(): Single<List<Movie>>
 
+    @Query("SELECT * FROM Movies WHERE title LIKE :query")
+    fun searchMovies(query: String): Single<List<Movie>>
+
     @Query("SELECT * FROM Movies where isFavorite = 1")
     fun getFavoriteMovies(): Single<List<Movie>>
 
