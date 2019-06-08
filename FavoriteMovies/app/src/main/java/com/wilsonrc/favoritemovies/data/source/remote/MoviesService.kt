@@ -17,6 +17,6 @@ interface MoviesService {
     fun getDetails(@Path("id") id: Int) : Single<Movie>
 
     @GET("search/movie")
-    fun search(@Path("query") query: String) : Single<DiscoverResponse>
+    fun search(@Query("query") query: String) : Single<DiscoverResponse>
 
 }

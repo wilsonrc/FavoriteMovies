@@ -26,6 +26,7 @@ class MoviesActivity : DaggerAppCompatActivity() {
         searchView?.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 val intent = Intent(this@MoviesActivity, SearchActivity::class.java)
+                intent.putExtra("SEARCH_QUERY", query)
                 startActivity(intent)
                 return false
             }
